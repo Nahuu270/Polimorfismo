@@ -1,0 +1,40 @@
+class Empleado:
+    def calcular_salario(self):
+        raise NotImplementedError(
+            "Este método debe ser sobrescrito por las subclases"
+        )
+
+class EmpleadoPorHora(Empleado):
+    def __init__(self, horas, pago_hora):
+        self.horas = horas
+        self.pago_hora = pago_hora
+
+    def calcular_salario(self):
+        return self.horas * self.pago_hora
+
+class EmpleadoFijo(Empleado):
+    def __init__(self, sueldo):
+        self.sueldo = sueldo
+
+    def calcular_salario(self):
+        return self.sueldo
+
+def main():
+    empleados = [
+        EmpleadoPorHora(50, 120),
+        EmpleadoFijo(6000),
+        EmpleadoPorHora(30, 150)
+    ]
+
+    salario_total = 0
+    for empleado in empleados:
+        salario = empleado.calcular_salario()
+        print(
+            f"{empleado.__class__.__name__}: ${salario}"
+        )
+        salario_total += salario
+
+    print(f"Salario total: ${salario_total}")
+
+if __name__ == "__main__":
+    main()
